@@ -1,44 +1,46 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { 
-  LayoutDashboard, Users, MessageSquare, FileText, Bell, Settings 
-} from "lucide-react";
-
-const navItems = [
-  { label: "Dashboard", icon: <LayoutDashboard size={18} />, path: "/admin/dashboard" },
-  { label: "Users", icon: <Users size={18} />, path: "/admin/users" },
-  { label: "Questions", icon: <MessageSquare size={18} />, path: "/admin/questions" },
-  { label: "Answers", icon: <FileText size={18} />, path: "/admin/answers" },
-  { label: "Notifications", icon: <Bell size={18} />, path: "/admin/notifications" },
-  { label: "Reports", icon: <FileText size={18} />, path: "/admin/reports" },
-  { label: "Settings", icon: <Settings size={18} />, path: "/admin/settings" },
-];
+import { Link, useLocation } from "react-router-dom";
+import { FaHome, FaCog, FaBell, FaUsers, FaQuestion } from "react-icons/fa";
 
 const AdminSidebar = () => {
+  const location = useLocation();
+
+  const menuItems = [
+    { label: "Dashboard", icon: <FaHome />, to: "/dashboard" },
+    { label: "Users", icon: <FaUsers />, to: "/users" },
+    { label: "Questions", icon: <FaQuestion />, to: "/questions" },
+    { label: "Notifications", icon: <FaBell />, to: "/notifications" },
+    { label: "Settings", icon: <FaCog />, to: "/settings" },
+  ];
+
   return (
-    <aside className="w-64 bg-[#101010] border-r border-[#1f1f1f] h-full p-6">
-      <div className="text-2xl font-bold text-white mb-8 tracking-wide">
-        <span className="text-purple-500">StackIt</span> Admin
+    <div className="w-64 h-screen bg-[#0f0f1a] text-white px-4 py-6 flex flex-col justify-between font-rajdhani border-r border-[#1a1a2c]">
+      <div>
+        <h1 className="text-3xl font-bold text-purple-500 mb-10">Runtime</h1>
+        <nav className="space-y-2">
+          {menuItems.map((item) => (
+            <Link
+              key={item.label}
+              to={item.to}
+              className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors hover:bg-[#1c1c2e] ${
+                location.pathname === item.to ? "bg-[#1c1c2e] text-purple-400" : "text-gray-300"
+              }`}
+            >
+              <span className="text-lg">{item.icon}</span>
+              <span className="text-md font-medium">{item.label}</span>
+            </Link>
+          ))}
+        </nav>
       </div>
 
-      <nav className="flex flex-col gap-2">
-        {navItems.map((item) => (
-          <NavLink
-            to={item.path}
-            key={item.label}
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition-colors duration-200
-              ${isActive
-                ? "bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-lg"
-                : "text-gray-400 hover:text-white hover:bg-[#1a1a1a]"}`
-            }
-          >
-            {item.icon}
-            {item.label}
-          </NavLink>
-        ))}
-      </nav>
-    </aside>
+      <div className="px-4">
+        <Link
+          to="/profile"
+          className="w-full flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-xl"
+        >
+          Get Started
+        </Link>
+      </div>
+    </div>
   );
 };
 
