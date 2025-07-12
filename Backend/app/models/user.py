@@ -20,8 +20,16 @@ class UserBase(BaseModel):
     is_active: bool = True
     is_verified: bool = False
     role: UserRole = UserRole.user
+    token_version: int = 0  # For token invalidation
+    last_login: Optional[datetime] = None
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+    class Config:
+        json_encoders = {
+            datetime: lambda v: v.isoformat() if v else None,
+            ObjectId: str
+        }
 
 class UserCreate(UserBase):
     password: str

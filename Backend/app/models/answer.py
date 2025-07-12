@@ -16,6 +16,7 @@ class AnswerBase(BaseModel):
     content: str = Field(..., min_length=10)
     votes: int = 0
     is_accepted: bool = False
+    status: str = Field(default="pending")
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
@@ -24,6 +25,7 @@ class AnswerCreate(AnswerBase):
 
 class AnswerUpdate(BaseModel):
     content: Optional[str] = Field(None, min_length=10)
+    status: Optional[str] = None
 
 class AnswerInDB(AnswerBase):
     id: Optional[PyObjectId] = Field(default=None, alias="_id")

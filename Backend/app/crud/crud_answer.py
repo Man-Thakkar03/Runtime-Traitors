@@ -120,5 +120,23 @@ class CRUDAnswer:
         
         return answers
 
+    async def get_by_status(self, status: str, skip: int = 0, limit: int = 100) -> List[AnswerInDB]:
+        answers = []
+        cursor = self.collection.find({"status": status}).sort("created_at", -1).skip(skip).limit(limit)
+        async for answer_data in cursor:
+            answers.append(AnswerInDB(**answer_data))
+        return answers
+
+    async def update_status(self, answer_id: str, status: str) -> Optional[AnswerInDB]:
+        if not ObjectId.is_valid(answer_id):
+            return None
+        result = await self.collection.update_one(
+            {"_id": ObjectId(answer_id)},
+            {"$set": {"status": status, "updated_at": datetime.utcnow()}}
+        )
+        if result.modified_count == 1:
+            return await self.get(answer_id)
+        return None
+
 # Create a default instance for easy importing
 answer = CRUDAnswer() 

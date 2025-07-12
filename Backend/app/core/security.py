@@ -7,6 +7,7 @@ from fastapi.security import OAuth2PasswordBearer, HTTPBearer, HTTPAuthorization
 from app.core.config import settings
 from app.models.user import UserInDB
 from app.crud.crud_user import user as crud_user
+from app.models.enums import UserRole, Permission
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -78,10 +79,21 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
+        # Check if token is blacklisted
+        from app.api.v1.endpoints.auth import is_token_blacklisted
+        if is_token_blacklisted(token):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Token has been revoked",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+            
         payload = jwt.decode(
             token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
         )
         user_id: str = payload.get("sub")
+        role: str = payload.get("role", UserRole.user)
+        
         if user_id is None:
             raise credentials_exception
             
@@ -89,6 +101,15 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
         user = await crud_user.get(user_id)
         if user is None:
             raise credentials_exception
+            
+        # Verify token version
+        token_version = payload.get("version", 0)
+        if hasattr(user, "token_version") and user.token_version > token_version:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Token has been invalidated",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
             
         # Return as dictionary format expected by endpoints
         return {
@@ -98,11 +119,51 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
             "last_name": user.last_name,
             "is_active": user.is_active,
             "is_verified": user.is_verified,
-            "role": user.role
+            "role": role,
+            "permissions": get_user_permissions(role)
         }
         
     except JOSEError as e:
         raise credentials_exception
+
+class RoleChecker:
+    def __init__(self, allowed_roles):
+        self.allowed_roles = allowed_roles
+
+    async def __call__(self, current_user: dict = Depends(get_current_user)):
+        if current_user["role"] not in self.allowed_roles:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Operation not permitted"
+            )
+        return current_user
+
+# Role-based dependencies
+allow_guest = RoleChecker([UserRole.guest, UserRole.user, UserRole.admin])
+allow_user = RoleChecker([UserRole.user, UserRole.admin])
+allow_admin = RoleChecker([UserRole.admin])
+
+def get_user_permissions(role: UserRole) -> list:
+    """Get permissions based on user role"""
+    if role == UserRole.admin:
+        return [permission.value for permission in Permission]
+    elif role == UserRole.user:
+        return [
+            Permission.USER_READ.value,
+            Permission.USER_UPDATE.value,
+            Permission.QUESTION_CREATE.value,
+            Permission.QUESTION_UPDATE.value,
+            Permission.QUESTION_DELETE.value,
+            Permission.ANSWER_CREATE.value,
+            Permission.ANSWER_UPDATE.value,
+            Permission.ANSWER_DELETE.value,
+        ]
+    else:  # guest
+        return [
+            Permission.USER_READ.value,
+            Permission.QUESTION_CREATE.value,
+            Permission.ANSWER_CREATE.value,
+        ]
 
 async def get_current_active_user(current_user: dict = Depends(get_current_user)) -> dict:
     """

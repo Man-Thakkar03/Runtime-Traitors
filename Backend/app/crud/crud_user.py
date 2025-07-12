@@ -122,5 +122,50 @@ class CRUDUser:
         result = await self.collection.delete_one({"_id": ObjectId(user_id)})
         return result.deleted_count > 0
 
+    async def update_last_login(self, user_id: str) -> bool:
+        """Update the last login timestamp for a user"""
+        if not ObjectId.is_valid(user_id):
+            return False
+            
+        result = await self.collection.update_one(
+            {"_id": ObjectId(user_id)},
+            {"$set": {"last_login": datetime.utcnow()}}
+        )
+        return result.modified_count > 0
+
+    async def increment_token_version(self, user_id: str) -> int:
+        """Increment the token version to invalidate existing tokens"""
+        if not ObjectId.is_valid(user_id):
+            return -1
+            
+        result = await self.collection.find_one_and_update(
+            {"_id": ObjectId(user_id)},
+            {"$inc": {"token_version": 1}},
+            return_document=True
+        )
+        return result.get("token_version", 1) if result else -1
+
+    async def get_user_permissions(self, user_id: str) -> list[str]:
+        """Get permissions for a specific user"""
+        from app.core.security import get_user_permissions
+        from app.models.enums import UserRole
+        
+        user = await self.get(user_id)
+        if not user:
+            return []
+            
+        return get_user_permissions(user.role)
+
+    async def update_user_role(self, user_id: str, role: str) -> bool:
+        """Update a user's role (admin only)"""
+        if not ObjectId.is_valid(user_id):
+            return False
+            
+        result = await self.collection.update_one(
+            {"_id": ObjectId(user_id)},
+            {"$set": {"role": role, "updated_at": datetime.utcnow()}}
+        )
+        return result.modified_count > 0
+
 # Create a default instance for easy importing
-user = CRUDUser() 
+user = CRUDUser()
