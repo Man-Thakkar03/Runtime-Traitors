@@ -63,15 +63,15 @@ const data = [
 ];
 
 const Dashboard = () => (
-  <div className="min-h-screen bg-[#181A20] p-4 lg:p-6">
-    <h1 className="text-2xl lg:text-3xl font-bold text-white mb-4 lg:mb-6">Admin Dashboard</h1>
+  <div>
+    <h1 className="text-2xl lg:text-3xl font-bold text-white mb-3 lg:mb-4">Admin Dashboard</h1>
     
     {/* Stats Grid */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-6 lg:mb-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4 mb-4 lg:mb-6">
       {stats.map((stat) => (
         <div
           key={stat.label}
-          className="bg-[#23263A] rounded-xl p-4 lg:p-6 flex items-center gap-3 lg:gap-4 shadow hover:shadow-lg transition"
+          className="bg-[#23263A] rounded-xl p-3 lg:p-4 flex items-center gap-3 lg:gap-4 shadow hover:shadow-lg transition"
         >
           <div className="bg-[#181A20] p-2 lg:p-3 rounded-full flex-shrink-0">{stat.icon}</div>
           <div className="min-w-0 flex-1">
@@ -84,11 +84,11 @@ const Dashboard = () => (
     </div>
     
     {/* Chart */}
-    <div className="bg-[#23263A] rounded-xl p-4 lg:p-6 shadow">
-      <h2 className="text-lg lg:text-xl font-semibold text-white mb-4 flex items-center gap-2">
+    <div className="bg-[#23263A] rounded-xl p-3 lg:p-4 shadow">
+      <h2 className="text-lg lg:text-xl font-semibold text-white mb-3 flex items-center gap-2">
         <span>📈</span> Weekly Activity Chart
       </h2>
-      <div className="w-full h-48 lg:h-64">
+      <div className="w-full h-40 lg:h-56">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
             <CartesianGrid stroke="#23263A" />

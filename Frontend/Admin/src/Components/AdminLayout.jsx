@@ -31,7 +31,7 @@ const AdminLayout = ({ children }) => {
       </div>
 
       {/* Main content */}
-      <main className="lg:ml-64 min-h-screen bg-[#181A20] p-4 lg:p-8 transition-all duration-300">
+      <main className="lg:ml-64 min-h-screen bg-[#181A20] p-4 lg:p-8 pt-16 lg:pt-8 transition-all duration-300">
         {children}
       </main>
     </div>
