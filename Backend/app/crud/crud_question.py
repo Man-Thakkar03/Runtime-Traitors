@@ -158,5 +158,23 @@ class CRUDQuestion:
         
         return questions
 
+    async def get_by_status(self, status: str, skip: int = 0, limit: int = 100) -> List[QuestionInDB]:
+        questions = []
+        cursor = self.collection.find({"status": status}).sort("created_at", -1).skip(skip).limit(limit)
+        async for question_data in cursor:
+            questions.append(QuestionInDB(**question_data))
+        return questions
+
+    async def update_status(self, question_id: str, status: str) -> Optional[QuestionInDB]:
+        if not ObjectId.is_valid(question_id):
+            return None
+        result = await self.collection.update_one(
+            {"_id": ObjectId(question_id)},
+            {"$set": {"status": status, "updated_at": datetime.utcnow()}}
+        )
+        if result.modified_count == 1:
+            return await self.get(question_id)
+        return None
+
 # Create a default instance for easy importing
 question = CRUDQuestion() 

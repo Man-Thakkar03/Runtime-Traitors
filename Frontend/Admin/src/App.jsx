@@ -1,5 +1,4 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import AdminLayout from "./Components/AdminLayout";
 import AdminDashboard from "./pages/Dashboard";
 import UsersPage from "./pages/UsersPage";
@@ -7,68 +6,24 @@ import QuestionsPage from "./pages/QuestionsPage";
 import AnswersPage from "./pages/AnswersPage";
 import ModerationPage from "./pages/ModerationPage";
 
-function App() {
+const App = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    window.location.href = "/login";
+  };
+
   return (
-    <Router>
-      <Routes>
-        {/* Redirect root to dashboard */}
-        <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
-        
-        {/* Admin Dashboard */}
-        <Route
-          path="/admin/dashboard"
-          element={
-            <AdminLayout>
-              <AdminDashboard />
-            </AdminLayout>
-          }
-        />
-
-        {/* User Management */}
-        <Route
-          path="/admin/users"
-          element={
-            <AdminLayout>
-              <UsersPage />
-            </AdminLayout>
-          }
-        />
-
-        {/* Questions Moderation */}
-        <Route
-          path="/admin/questions"
-          element={
-            <AdminLayout>
-              <QuestionsPage />
-            </AdminLayout>
-          }
-        />
-
-        {/* Answers Moderation */}
-        <Route
-          path="/admin/answers"
-          element={
-            <AdminLayout>
-              <AnswersPage />
-            </AdminLayout>
-          }
-        />
-
-        {/* Moderation */}
-        <Route
-          path="/admin/moderation"
-          element={
-            <AdminLayout>
-              <ModerationPage />
-            </AdminLayout>
-          }
-        />
-
-        {/* 404 fallback */}
-        <Route path="*" element={<div className="text-white p-8">404 - Page Not Found</div>} />
-      </Routes>
-    </Router>
+    <div className="relative">
+      <button
+        onClick={handleLogout}
+        className="absolute top-4 right-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
+      >
+        Logout
+      </button>
+      {/* The actual routes are now defined in main.jsx */}
+      {/* This component just renders the layout and children as needed */}
+    </div>
   );
-}
+};
 
 export default App;

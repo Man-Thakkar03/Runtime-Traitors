@@ -22,3 +22,6 @@ class UserResponse(UserBase):
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
     last_login: Optional[datetime] = None 
+
+class UserRoleUpdate(BaseModel):
+    role: UserRole 

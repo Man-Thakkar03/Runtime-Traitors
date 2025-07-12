@@ -20,6 +20,7 @@ class QuestionBase(BaseModel):
     is_answered: bool = False
     views: int = 0
     votes: int = 0
+    status: str = Field(default="pending")
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
@@ -30,6 +31,7 @@ class QuestionUpdate(BaseModel):
     title: Optional[str] = Field(None, min_length=10, max_length=200)
     content: Optional[str] = Field(None, min_length=20)
     tags: Optional[List[str]] = None
+    status: Optional[str] = None
 
 class QuestionInDB(QuestionBase):
     id: Optional[PyObjectId] = Field(default=None, alias="_id")
