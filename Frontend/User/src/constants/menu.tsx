@@ -16,21 +16,7 @@ interface SideBarProps extends FieldProps {
   href?: string;
 }
 
-// Create a React component for the Feed icon instead of importing the SVG directly
-const FeedIcon = (props: IconProps) => (
-  <svg 
-    width="24" 
-    height="24" 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M12 12V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M12 7V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+
 
 export const SIDEBAR_MENU: SideBarProps[] = [
   {
@@ -43,27 +29,8 @@ export const SIDEBAR_MENU: SideBarProps[] = [
     ),
     href: '/dashboard'
   },
-  {
-    id: uuid(),
-    label: 'Feed',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-      </svg>
-    ),
-    href: '/dashboard/feed'
-  },
-  {
-    id: uuid(),
-    label: 'Create Post',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 5v14M5 12h14" />
-      </svg>
-    ),
-    href: '/dashboard/create-post'
-  },
+
+
   {
     id: uuid(),
     label: 'Events',

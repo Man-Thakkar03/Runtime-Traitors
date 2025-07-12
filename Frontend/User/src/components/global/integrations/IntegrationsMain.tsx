@@ -28,7 +28,7 @@ const integrations: Integration[] = [
   {
     id: 'instagram',
     name: 'Instagram',
-    description: 'Connect your Instagram account to schedule and publish posts.',
+    description: 'Connect your Instagram account to manage your social media presence.',
     category: 'social',
     connected: true,
     color: 'bg-gradient-to-br from-pink-500 to-purple-600',

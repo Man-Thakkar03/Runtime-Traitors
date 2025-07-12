@@ -37,12 +37,7 @@ const features = [
     icon: Users,
     color: 'from-amber-500 to-amber-600'
   },
-  {
-    name: 'Personalized Content',
-    description: 'Deliver tailored updates and announcements with an AI-powered feed that learns user preferences.',
-    icon: Heart,
-    color: 'from-rose-500 to-rose-600'
-  },
+
   {
     name: 'Third-party Integrations',
     description: 'Boost productivity by seamlessly connecting with your favorite tools and existing workflows.',

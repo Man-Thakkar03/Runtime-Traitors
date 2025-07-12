@@ -10,15 +10,7 @@ export const dashboardStats = [
   { name: 'Avg. Session', value: '12m 45s', change: '+2.8%', changeType: 'positive' },
 ];
 
-// Feed Stats
-export const feedStats = [
-  { name: 'Total Posts', value: '2,547', change: '+22.3%', changeType: 'positive' },
-  { name: 'Engagement Rate', value: '34.8%', change: '+7.6%', changeType: 'positive' },
-  { name: 'Comments', value: '8,932', change: '+31.4%', changeType: 'positive' },
-  { name: 'Shares', value: '1,245', change: '+42.7%', changeType: 'positive' },
-  { name: 'Avg. Reach', value: '1,892', change: '+15.4%', changeType: 'positive' },
-  { name: 'Active Contributors', value: '756', change: '+12.7%', changeType: 'positive' },
-];
+
 
 // Events Stats
 export const eventsStats = [
@@ -92,12 +84,12 @@ export const settingsStats = [
 
 // Monthly Trend Data
 export const monthlyTrendData = [
-  { name: 'Jan', users: 2840, posts: 1540, events: 18, engagement: 62, revenue: 12400 },
-  { name: 'Feb', users: 3120, posts: 1780, events: 22, engagement: 68, revenue: 15600 },
-  { name: 'Mar', users: 3580, posts: 2150, events: 25, engagement: 72, revenue: 18900 },
-  { name: 'Apr', users: 3780, posts: 2480, events: 28, engagement: 75, revenue: 22400 },
-  { name: 'May', users: 3920, posts: 2720, events: 32, engagement: 78, revenue: 25800 },
-  { name: 'Jun', users: 4150, posts: 3050, events: 36, engagement: 82, revenue: 28500 },
+  { name: 'Jan', users: 2840, events: 18, engagement: 62, revenue: 12400 },
+  { name: 'Feb', users: 3120, events: 22, engagement: 68, revenue: 15600 },
+  { name: 'Mar', users: 3580, events: 25, engagement: 72, revenue: 18900 },
+  { name: 'Apr', users: 3780, events: 28, engagement: 75, revenue: 22400 },
+  { name: 'May', users: 3920, events: 32, engagement: 78, revenue: 25800 },
+  { name: 'Jun', users: 4150, events: 36, engagement: 82, revenue: 28500 },
 ];
 
 // User Activity by Time
@@ -118,7 +110,6 @@ export const userActivityByTime = [
 
 // Content Engagement by Type
 export const contentEngagementData = [
-  { type: 'Posts', engagement: 78 },
   { type: 'Events', engagement: 82 },
   { type: 'Polls', engagement: 74 },
   { type: 'Q&A', engagement: 68 },
@@ -144,7 +135,7 @@ export const userGrowthStages = [
 export const recentActivityData = [
   { id: 1, user: 'Alex Johnson', action: 'created a new event', time: '2 min ago', type: 'event' },
   { id: 2, user: 'Maria Garcia', action: 'responded to a poll', time: '5 min ago', type: 'poll' },
-  { id: 3, user: 'James Wilson', action: 'posted in the community', time: '12 min ago', type: 'post' },
+
   { id: 4, user: 'Sarah Miller', action: 'answered a question', time: '18 min ago', type: 'qa' },
   { id: 5, user: 'David Chen', action: 'joined a group chat', time: '25 min ago', type: 'chat' },
   { id: 6, user: 'Emma Taylor', action: 'registered for an event', time: '32 min ago', type: 'event' },
