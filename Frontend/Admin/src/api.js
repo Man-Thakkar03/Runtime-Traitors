@@ -1,5 +1,5 @@
 // Centralized API utility for Admin Frontend
-const API_BASE = "http://hackathon-runtime-traitors-fixed.southindia.azurecontainer.io:8000/api/v1";
+const API_BASE = "https://backend-stackit-duae.onrender.com/api/v1";
 
 // Helper for fetch with error handling
 async function apiFetch(path, options = {}) {

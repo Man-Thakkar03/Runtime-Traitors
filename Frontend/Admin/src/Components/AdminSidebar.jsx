@@ -8,6 +8,8 @@ import {
   FaSignOutAlt,
   FaTimes,
 } from "react-icons/fa";
+import { config } from "../config";
+import { toast } from "react-toastify";
 
 const menu = [
   { label: "Dashboard", icon: <FaHome />, path: "/admin/dashboard" },
@@ -21,8 +23,27 @@ const AdminSidebar = ({ onClose }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    // Clear any stored authentication data
     localStorage.removeItem("access_token");
-    navigate("/login");
+    localStorage.removeItem("admin_token");
+    sessionStorage.clear();
+    
+    // Show success message with toast notification
+    toast.success("Logout successful! Redirecting to homepage...", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+    
+    // Redirect to the User frontend homepage after a short delay
+    setTimeout(() => {
+      // Since we're in the Admin frontend, we need to navigate to the User frontend
+      // Using the configured URL from config
+      window.location.href = config.userFrontendUrl;
+    }, 1000);
   };
 
   const handleMenuClick = () => {

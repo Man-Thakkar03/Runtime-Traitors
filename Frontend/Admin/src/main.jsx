@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import App from "./App";
 import AdminLayout from "./Components/AdminLayout";
 import AdminDashboard from "./pages/Dashboard";
@@ -76,6 +78,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         />
         <Route path="*" element={<div className="text-white p-8">404 - Page Not Found</div>} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   </React.StrictMode>
 );

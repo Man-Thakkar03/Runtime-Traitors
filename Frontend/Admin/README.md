@@ -78,3 +78,38 @@ The application has been optimized for:
 - ✅ Tablet devices
 
 All pages feature responsive design with mobile-first approach and smooth transitions between breakpoints.
+
+## Configuration
+
+### Logout Redirect URL
+
+The admin panel is configured to redirect to the User frontend after logout. You can modify the redirect URL in `src/config.js`:
+
+```javascript
+export const config = {
+  // URL for the User frontend (adjust based on your setup)
+  userFrontendUrl: "http://localhost:3000",
+  // ... other config
+};
+```
+
+**Default Configuration:**
+- User Frontend URL: `http://localhost:3000` (Next.js default port)
+- Admin Panel: `http://localhost:5173` (Vite default port)
+
+**To change the redirect URL:**
+1. Open `src/config.js`
+2. Update the `userFrontendUrl` to match your User frontend URL
+3. Save the file and restart the development server
+
+**Example configurations:**
+```javascript
+// For production
+userFrontendUrl: "https://yourdomain.com"
+
+// For different local ports
+userFrontendUrl: "http://localhost:3001"
+
+// For subdomain setup
+userFrontendUrl: "https://app.yourdomain.com"
+```
