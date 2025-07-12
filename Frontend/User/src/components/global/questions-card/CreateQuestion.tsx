@@ -3,7 +3,7 @@
 import { useState, FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { SendHorizonal, X, Hash, HelpCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -35,7 +35,9 @@ export default function CreateQuestion() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!title.trim() || !description.trim() || tags.length === 0) return;
+    // Check if description has meaningful content (not just empty HTML)
+    const hasContent = description.trim() && description.replace(/<[^>]*>/g, '').trim().length > 0;
+    if (!title.trim() || !hasContent || tags.length === 0) return;
 
     setIsSubmitting(true);
     
@@ -84,16 +86,14 @@ export default function CreateQuestion() {
           <label htmlFor="description" className="block text-sm font-medium text-gray-200">
             Question Details
           </label>
-          <Textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Explain your question in detail..."
-            className="w-full bg-[#1A1A1F] border-[#2D2D35] text-white focus:ring-purple-500 focus:border-purple-500 min-h-[200px]"
-            required
+          <RichTextEditor
+            content={description}
+            onChange={setDescription}
+            placeholder="Explain your question in detail... Include all the information someone would need to answer your question"
+            className="min-h-[200px]"
           />
           <p className="text-xs text-gray-400">
-            Include all the information someone would need to answer your question
+            Use the toolbar above to format your text, add images, and include links
           </p>
         </div>
 
@@ -146,7 +146,7 @@ export default function CreateQuestion() {
           </Button>
           <Button
             type="submit"
-            disabled={!title.trim() || !description.trim() || tags.length === 0 || isSubmitting}
+            disabled={!title.trim() || !description.replace(/<[^>]*>/g, '').trim() || tags.length === 0 || isSubmitting}
             className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white flex items-center gap-2"
           >
             <SendHorizonal className="h-4 w-4" />

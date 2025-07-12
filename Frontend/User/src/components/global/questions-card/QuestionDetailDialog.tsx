@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { ArrowUp, MessageSquare, Send } from "lucide-react";
 
 interface Question {
   id: number;
   title: string;
+  description: string;
   tags: string[];
   upvotes: number;
   answers: number;
@@ -32,14 +33,14 @@ interface QuestionDetailDialogProps {
 const MOCK_ANSWERS: Answer[] = [
   {
     id: 1,
-    text: "React hooks need to be called at the top level of your component, not inside conditions, loops, or nested functions. This ensures hooks are called in the same order each time a component renders.",
+    text: "<p>React hooks need to be called at the <strong>top level</strong> of your component, not inside conditions, loops, or nested functions. This ensures hooks are called in the same order each time a component renders.</p><p>Here are some key points:</p><ul><li>Always call hooks at the top level</li><li>Don't call hooks inside loops, conditions, or nested functions</li><li>Only call hooks from React function components or custom hooks</li></ul><p>This is known as the <em>Rules of Hooks</em>.</p>",
     author: "Jane Smith",
     upvotes: 7,
     date: "2 days ago",
   },
   {
     id: 2,
-    text: "Make sure to include all dependencies in the dependency array for useEffect. If your effect uses values from the component scope, they should be specified in the array.",
+    text: "<p>Make sure to include all dependencies in the dependency array for <code>useEffect</code>. If your effect uses values from the component scope, they should be specified in the array.</p><p>For example:</p><pre><code>useEffect(() => {\n  // Your effect code\n}, [dependency1, dependency2]);</code></pre><p>This helps prevent infinite re-renders and ensures your effect runs when it should.</p>",
     author: "John Doe",
     upvotes: 4,
     date: "1 day ago",
@@ -57,7 +58,9 @@ export default function QuestionDetailDialog({
   const [upvotes, setUpvotes] = useState(question?.upvotes || 0);
 
   const handleSubmitAnswer = () => {
-    if (!newAnswer.trim()) return;
+    // Check if answer has meaningful content (not just empty HTML)
+    const hasContent = newAnswer.trim() && newAnswer.replace(/<[^>]*>/g, '').trim().length > 0;
+    if (!hasContent) return;
 
     // Add new answer
     const newAnswerObj: Answer = {
@@ -110,6 +113,15 @@ export default function QuestionDetailDialog({
         </DialogHeader>
 
         <div className="flex-1 overflow-y-auto py-4 space-y-4">
+          {/* Question Description */}
+          <div className="border border-[#2D2D35] rounded-lg p-4 bg-[#1A1A1F] mb-6">
+            <h3 className="font-medium text-lg text-purple-400 mb-3">Question Details</h3>
+            <div 
+              className="text-gray-200 prose prose-invert max-w-none"
+              dangerouslySetInnerHTML={{ __html: question.description }}
+            />
+          </div>
+
           <div className="space-y-1 mb-6">
             <h3 className="font-medium text-lg text-purple-400 flex items-center gap-2">
               <MessageSquare className="h-4 w-4" />
@@ -125,7 +137,10 @@ export default function QuestionDetailDialog({
                   key={answer.id}
                   className="border border-[#2D2D35] rounded-lg p-4 bg-[#1A1A1F]"
                 >
-                  <p className="text-gray-200 mb-3">{answer.text}</p>
+                  <div 
+                    className="text-gray-200 mb-3 prose prose-invert max-w-none"
+                    dangerouslySetInnerHTML={{ __html: answer.text }}
+                  />
                   <div className="flex justify-between items-center text-xs text-gray-400">
                     <span>Posted by {answer.author} • {answer.date}</span>
                     <div className="flex items-center gap-2">
@@ -147,15 +162,15 @@ export default function QuestionDetailDialog({
 
         <DialogFooter className="border-t border-[#2D2D35] pt-4">
           <div className="w-full space-y-3">
-            <Textarea
-              value={newAnswer}
-              onChange={(e) => setNewAnswer(e.target.value)}
+            <RichTextEditor
+              content={newAnswer}
+              onChange={setNewAnswer}
               placeholder="Write your answer..."
-              className="w-full bg-[#1A1A1F] border-[#2D2D35] focus:ring-purple-500 focus:border-purple-500 text-white resize-none min-h-[100px]"
+              className="min-h-[100px]"
             />
             <Button
               onClick={handleSubmitAnswer}
-              disabled={!newAnswer.trim()}
+              disabled={!newAnswer.replace(/<[^>]*>/g, '').trim()}
               className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white ml-auto flex items-center gap-2"
             >
               <Send className="h-4 w-4" />

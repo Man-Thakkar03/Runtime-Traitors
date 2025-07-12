@@ -8,6 +8,7 @@ import QuestionDetailDialog from "./QuestionDetailDialog";
 interface Question {
   id: number;
   title: string;
+  description: string;
   tags: string[];
   upvotes: number;
   answers: number;

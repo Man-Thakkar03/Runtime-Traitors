@@ -13,6 +13,7 @@ import { Toaster } from "@/components/ui/sonner";
 interface Question {
   id: number;
   title: string;
+  description: string;
   tags: string[];
   upvotes: number;
   answers: number;
@@ -22,6 +23,7 @@ const MOCK_QUESTIONS: Question[] = [
   {
     id: 1,
     title: "How do I use React hooks effectively?",
+    description: "<p>I'm new to React and trying to understand how to use hooks properly. I've been reading about useState and useEffect, but I'm still confused about:</p><ul><li>When to use different hooks</li><li>How to avoid common pitfalls</li><li>Best practices for custom hooks</li></ul><p>Can someone provide some practical examples and tips?</p>",
     tags: ["react", "hooks", "javascript"],
     upvotes: 12,
     answers: 3,
@@ -29,6 +31,7 @@ const MOCK_QUESTIONS: Question[] = [
   {
     id: 2,
     title: "What is the difference between let, var, and const?",
+    description: "<p>I'm learning JavaScript and I'm confused about the differences between <code>let</code>, <code>var</code>, and <code>const</code>. I know they're all used for variable declaration, but when should I use each one?</p><p>I've heard about hoisting and block scope, but I'm not sure how they affect these declarations.</p>",
     tags: ["javascript", "variables"],
     upvotes: 8,
     answers: 2,
@@ -36,6 +39,7 @@ const MOCK_QUESTIONS: Question[] = [
   {
     id: 3,
     title: "Best practices for designing a REST API?",
+    description: "<p>I'm designing a REST API for my project and want to follow best practices. I'm looking for guidance on:</p><ul><li>URL structure and naming conventions</li><li>HTTP status codes</li><li>Authentication and authorization</li><li>Error handling</li><li>Documentation</li></ul><p>Any resources or examples would be greatly appreciated!</p>",
     tags: ["api", "backend", "design"],
     upvotes: 15,
     answers: 4,
@@ -43,6 +47,7 @@ const MOCK_QUESTIONS: Question[] = [
   {
     id: 4,
     title: "How to optimize React performance?",
+    description: "<p>My React application is getting slower as it grows. I'm looking for ways to optimize performance:</p><ul><li>Component memoization techniques</li><li>Bundle size optimization</li><li>Lazy loading strategies</li><li>State management optimization</li></ul><p>I've heard about React.memo and useMemo, but I'm not sure when to use them.</p>",
     tags: ["react", "performance", "optimization"],
     upvotes: 10,
     answers: 2,
@@ -50,6 +55,7 @@ const MOCK_QUESTIONS: Question[] = [
   {
     id: 5,
     title: "Understanding TypeScript generics",
+    description: "<p>I'm learning TypeScript and struggling with generics. I understand the basic syntax, but I'm having trouble with:</p><ul><li>When to use generics vs union types</li><li>Generic constraints</li><li>Generic utility types</li><li>Real-world use cases</li></ul><p>Could someone explain with practical examples?</p>",
     tags: ["typescript", "generics"],
     upvotes: 7,
     answers: 1,
