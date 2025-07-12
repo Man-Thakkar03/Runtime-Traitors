@@ -17,23 +17,6 @@ async def create_test_users(count=10):
     """Create test users"""
     crud_user = CRUDUser()
     
-    # Create admin user if not exists
-    admin_email = "admin@example.com"
-    admin_user = await crud_user.get_by_email(admin_email)
-    
-    if not admin_user:
-        admin_data = UserCreate(
-            email=admin_email,
-            password="admin123",
-            first_name="Admin",
-            last_name="User",
-            role="admin",
-            is_active=True,
-            is_verified=True
-        )
-        admin_user = await crud_user.create(admin_data)
-        print(f"Created admin user: {admin_user.email}")
-    
     # Create regular users
     for i in range(1, count + 1):
         email = f"user{i}@example.com"
@@ -62,9 +45,6 @@ async def main():
         # Create test data
         await create_test_users(10)
         print("\nDatabase seeding completed successfully!")
-        print("\nAdmin credentials:")
-        print("Email: admin@example.com")
-        print("Password: admin123")
         print("\nUser credentials:")
         print("Email: user1@example.com")
         print("Password: password123")

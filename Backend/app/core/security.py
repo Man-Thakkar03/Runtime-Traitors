@@ -106,17 +106,5 @@ async def get_current_active_user(current_user: UserInDB = Depends(get_current_u
         )
     return current_user
 
-async def get_current_admin_user(current_user: UserInDB = Depends(get_current_active_user)) -> UserInDB:
-    """
-    Get the current admin user
-    """
-    if current_user.role != "admin":
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Not enough permissions"
-        )
-    return current_user
-
 # Shortcut dependencies for easier use
-current_user = get_current_active_user
-current_admin = get_current_admin_user 
+current_user = get_current_active_user 
