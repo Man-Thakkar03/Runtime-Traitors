@@ -89,57 +89,129 @@ const AnswersPage = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-white mb-6">Moderate Answers</h1>
+      <h1 className="text-xl lg:text-2xl font-bold text-white mb-4 lg:mb-6">Moderate Answers</h1>
       {error && <div className="text-red-400 mb-4">{error}</div>}
       {loading ? (
         <div className="text-gray-300">Loading...</div>
       ) : (
         <>
           {/* Filters */}
-          <div className="flex flex-wrap gap-4 mb-6">
-            <div>
-              <label className="text-gray-300 mr-2">Status:</label>
-              <select
-                className="bg-[#23263A] text-white rounded px-3 py-1"
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-              >
-                {statusOptions.map((status) => (
-                  <option key={status}>{status}</option>
-                ))}
-              </select>
+          <div className="flex flex-col gap-3 lg:gap-4 mb-4 lg:mb-6">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+                <label className="text-gray-300 text-sm whitespace-nowrap">Status:</label>
+                <select
+                  className="bg-[#23263A] text-white rounded px-3 py-2 text-sm w-full sm:w-auto"
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                >
+                  {statusOptions.map((status) => (
+                    <option key={status}>{status}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+                <label className="text-gray-300 text-sm whitespace-nowrap">From:</label>
+                <input
+                  type="date"
+                  className="bg-[#23263A] text-white rounded px-3 py-2 text-sm w-full sm:w-auto"
+                  value={dateFrom}
+                  onChange={(e) => setDateFrom(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+                <label className="text-gray-300 text-sm whitespace-nowrap">To:</label>
+                <input
+                  type="date"
+                  className="bg-[#23263A] text-white rounded px-3 py-2 text-sm w-full sm:w-auto"
+                  value={dateTo}
+                  onChange={(e) => setDateTo(e.target.value)}
+                />
+              </div>
             </div>
-            <div>
-              <label className="text-gray-300 mr-2">From:</label>
-              <input
-                type="date"
-                className="bg-[#23263A] text-white rounded px-3 py-1"
-                value={dateFrom}
-                onChange={(e) => setDateFrom(e.target.value)}
-              />
-            </div>
-            <div>
-              <label className="text-gray-300 mr-2">To:</label>
-              <input
-                type="date"
-                className="bg-[#23263A] text-white rounded px-3 py-1"
-                value={dateTo}
-                onChange={(e) => setDateTo(e.target.value)}
-              />
-            </div>
-            <div className="flex items-center">
+            <div className="flex items-center gap-2">
               <input
                 type="text"
                 placeholder="Search by answer or question"
-                className="bg-[#23263A] text-white rounded px-3 py-1"
+                className="bg-[#23263A] text-white rounded px-3 py-2 text-sm flex-1"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <FaSearch className="ml-2 text-gray-400" />
+              <FaSearch className="text-gray-400" />
             </div>
           </div>
-          {/* Table */}
-          <div className="overflow-x-auto rounded-lg shadow">
+          
+          {/* Mobile Cards View */}
+          <div className="lg:hidden space-y-4">
+            {filteredAnswers.length === 0 ? (
+              <div className="text-center py-6 text-gray-400">No answers found.</div>
+            ) : (
+              filteredAnswers.map((a) => (
+                <div key={a.id} className="bg-[#23263A] rounded-lg p-4 space-y-3">
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-white text-sm">by {a.user}</div>
+                      <div className="text-sm text-gray-400">Question: {a.questionTitle}</div>
+                    </div>
+                    <span
+                      className={`px-2 py-1 rounded text-xs font-semibold ml-2 flex-shrink-0 ${
+                        a.status === "Pending"
+                          ? "bg-yellow-700 text-yellow-200"
+                          : a.status === "Approved"
+                          ? "bg-green-700 text-green-200"
+                          : "bg-red-700 text-red-200"
+                      }`}
+                    >
+                      {a.status}
+                    </span>
+                  </div>
+                  <div className="text-sm text-gray-300 line-clamp-3" title={a.snippet}>
+                    {a.snippet}
+                  </div>
+                  <div className="text-sm text-gray-400">
+                    Posted: {formatDate(a.postedOn)}
+                  </div>
+                  <div className="flex gap-2 pt-2">
+                    <button
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                      onClick={() => handleView(a)}
+                      title="View"
+                    >
+                      <FaSearch className="inline mr-1" />
+                      View
+                    </button>
+                    <button
+                      className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm"
+                      disabled={a.status === "Approved"}
+                      onClick={() => handleApprove(a.id)}
+                      title="Approve"
+                    >
+                      Approve
+                    </button>
+                    <button
+                      className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+                      disabled={a.status === "Rejected"}
+                      onClick={() => handleReject(a.id)}
+                      title="Reject"
+                    >
+                      Reject
+                    </button>
+                    <button
+                      className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm"
+                      onClick={() => handleDelete(a.id)}
+                      title="Delete"
+                    >
+                      <FaTrash className="inline mr-1" />
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
+          {/* Desktop Table View */}
+          <div className="hidden lg:block overflow-x-auto rounded-lg shadow">
             <table className="min-w-full bg-[#23263A] text-white">
               <thead>
                 <tr>

@@ -63,36 +63,65 @@ const data = [
 ];
 
 const Dashboard = () => (
-  <div className="min-h-screen bg-[#181A20] p-6">
-    <h1 className="text-3xl font-bold text-white mb-6">Admin Dashboard</h1>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+  <div className="min-h-screen bg-[#181A20] p-4 lg:p-6">
+    <h1 className="text-2xl lg:text-3xl font-bold text-white mb-4 lg:mb-6">Admin Dashboard</h1>
+    
+    {/* Stats Grid */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-6 lg:mb-8">
       {stats.map((stat) => (
         <div
           key={stat.label}
-          className="bg-[#23263A] rounded-xl p-6 flex items-center gap-4 shadow hover:shadow-lg transition"
+          className="bg-[#23263A] rounded-xl p-4 lg:p-6 flex items-center gap-3 lg:gap-4 shadow hover:shadow-lg transition"
         >
-          <div className="bg-[#181A20] p-3 rounded-full">{stat.icon}</div>
-          <div>
-            <div className="text-2xl font-bold text-white">{stat.value}</div>
-            <div className="text-sm text-gray-400">{stat.label}</div>
+          <div className="bg-[#181A20] p-2 lg:p-3 rounded-full flex-shrink-0">{stat.icon}</div>
+          <div className="min-w-0 flex-1">
+            <div className="text-lg lg:text-2xl font-bold text-white truncate">{stat.value}</div>
+            <div className="text-xs lg:text-sm text-gray-400 truncate">{stat.label}</div>
             <div className={`text-xs font-semibold ${stat.color}`}>{stat.change}</div>
           </div>
         </div>
       ))}
     </div>
-    <div className="bg-[#23263A] rounded-xl p-6 shadow">
-      <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+    
+    {/* Chart */}
+    <div className="bg-[#23263A] rounded-xl p-4 lg:p-6 shadow">
+      <h2 className="text-lg lg:text-xl font-semibold text-white mb-4 flex items-center gap-2">
         <span>📈</span> Weekly Activity Chart
       </h2>
-      <ResponsiveContainer width="100%" height={250}>
-        <LineChart data={data}>
-          <CartesianGrid stroke="#23263A" />
-          <XAxis dataKey="name" stroke="#8884d8" />
-          <YAxis stroke="#8884d8" />
-          <Tooltip contentStyle={{ background: "#23263A", border: "none", color: "#fff" }} />
-          <Line type="monotone" dataKey="activity" stroke="#8884d8" strokeWidth={3} dot={{ r: 5 }} />
-        </LineChart>
-      </ResponsiveContainer>
+      <div className="w-full h-48 lg:h-64">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={data}>
+            <CartesianGrid stroke="#23263A" />
+            <XAxis 
+              dataKey="name" 
+              stroke="#8884d8" 
+              fontSize={12}
+              tick={{ fill: '#8884d8' }}
+            />
+            <YAxis 
+              stroke="#8884d8" 
+              fontSize={12}
+              tick={{ fill: '#8884d8' }}
+            />
+            <Tooltip 
+              contentStyle={{ 
+                background: "#23263A", 
+                border: "none", 
+                color: "#fff",
+                borderRadius: "8px",
+                fontSize: "12px"
+              }} 
+            />
+            <Line 
+              type="monotone" 
+              dataKey="activity" 
+              stroke="#8884d8" 
+              strokeWidth={3} 
+              dot={{ r: 4, fill: "#8884d8" }} 
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   </div>
 );

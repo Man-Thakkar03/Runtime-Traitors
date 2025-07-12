@@ -56,18 +56,18 @@ const UsersPage = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-white mb-6">User Management</h1>
+      <h1 className="text-xl lg:text-2xl font-bold text-white mb-4 lg:mb-6">User Management</h1>
       {error && <div className="text-red-400 mb-4">{error}</div>}
       {loading ? (
         <div className="text-gray-300">Loading...</div>
       ) : (
         <>
           {/* Filters */}
-          <div className="flex flex-wrap gap-4 mb-6">
-            <div>
-              <label className="text-gray-300 mr-2">Role:</label>
+          <div className="flex flex-col sm:flex-row flex-wrap gap-3 lg:gap-4 mb-4 lg:mb-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+              <label className="text-gray-300 text-sm whitespace-nowrap">Role:</label>
               <select
-                className="bg-[#23263A] text-white rounded px-3 py-1"
+                className="bg-[#23263A] text-white rounded px-3 py-2 text-sm w-full sm:w-auto"
                 value={roleFilter}
                 onChange={(e) => setRoleFilter(e.target.value)}
               >
@@ -76,10 +76,10 @@ const UsersPage = () => {
                 ))}
               </select>
             </div>
-            <div>
-              <label className="text-gray-300 mr-2">Status:</label>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+              <label className="text-gray-300 text-sm whitespace-nowrap">Status:</label>
               <select
-                className="bg-[#23263A] text-white rounded px-3 py-1"
+                className="bg-[#23263A] text-white rounded px-3 py-2 text-sm w-full sm:w-auto"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
               >
@@ -89,8 +89,66 @@ const UsersPage = () => {
               </select>
             </div>
           </div>
-          {/* Table */}
-          <div className="overflow-x-auto rounded-lg shadow">
+          
+          {/* Mobile Cards View */}
+          <div className="lg:hidden space-y-4">
+            {filteredUsers.length === 0 ? (
+              <div className="text-center py-6 text-gray-400">No users found.</div>
+            ) : (
+              filteredUsers.map((user) => (
+                <div key={user.id} className="bg-[#23263A] rounded-lg p-4 space-y-3">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <div className="font-semibold text-white">{user.username}</div>
+                      <div className="text-sm text-gray-400">{user.email}</div>
+                    </div>
+                    <span
+                      className={`px-2 py-1 rounded text-xs font-semibold ${
+                        user.status === "Active"
+                          ? "bg-green-700 text-green-200"
+                          : "bg-red-700 text-red-200"
+                      }`}
+                    >
+                      {user.status}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm text-gray-400">
+                    <span>Role: {user.role}</span>
+                    <span>Q: {user.questions} | A: {user.answers}</span>
+                  </div>
+                  <div className="flex gap-2 pt-2">
+                    <button
+                      className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+                      disabled={user.status === "Banned"}
+                      onClick={() => handleBan(user.id)}
+                      title="Ban"
+                    >
+                      <FaBan className="inline mr-1" />
+                      Ban
+                    </button>
+                    <button
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                      onClick={() => handleViewProfile(user.id)}
+                      title="View Profile"
+                    >
+                      <FaSearch className="inline mr-1" />
+                      View
+                    </button>
+                    <button
+                      className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm"
+                      onClick={() => handleDelete(user.id)}
+                      title="Delete User"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
+          {/* Desktop Table View */}
+          <div className="hidden lg:block overflow-x-auto rounded-lg shadow">
             <table className="min-w-full bg-[#23263A] text-white">
               <thead>
                 <tr>
