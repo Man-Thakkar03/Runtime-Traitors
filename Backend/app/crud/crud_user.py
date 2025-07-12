@@ -18,6 +18,9 @@ class CRUDUser:
     async def get_by_email(self, email: str) -> Optional[UserInDB]:
         user_data = await self.collection.find_one({"email": email})
         if user_data:
+            # Convert ObjectId to string for JSON serialization
+            if "_id" in user_data:
+                user_data["_id"] = str(user_data["_id"])
             return UserInDB(**user_data)
         return None
 
@@ -26,8 +29,22 @@ class CRUDUser:
             return None
         user_data = await self.collection.find_one({"_id": ObjectId(user_id)})
         if user_data:
+            # Convert ObjectId to string for JSON serialization
+            if "_id" in user_data:
+                user_data["_id"] = str(user_data["_id"])
             return UserInDB(**user_data)
         return None
+
+    async def get_multi(self, skip: int = 0, limit: int = 100) -> list[UserInDB]:
+        """Get multiple users with pagination"""
+        cursor = self.collection.find().skip(skip).limit(limit)
+        users = []
+        async for user_data in cursor:
+            # Convert ObjectId to string for JSON serialization
+            if "_id" in user_data:
+                user_data["_id"] = str(user_data["_id"])
+            users.append(UserInDB(**user_data))
+        return users
 
     async def create(self, user_in: UserCreate) -> UserInDB:
         # Check if user with email already exists

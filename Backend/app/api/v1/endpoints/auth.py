@@ -61,12 +61,15 @@ async def login(login_data: LoginRequest):
     # Create refresh token
     refresh_token = create_refresh_token(str(user.id))
     
-    # Prepare user data for response
-    user_data = user.dict(exclude={
+    # Prepare user data for response - convert to dict and handle ObjectId serialization
+    user_data = user.model_dump(exclude={
         "hashed_password",
         "created_at",
         "updated_at"
     })
+    # Ensure ObjectId is converted to string
+    if "id" in user_data:
+        user_data["id"] = str(user_data["id"])
     
     return standard_response(
         True,
@@ -106,12 +109,15 @@ async def register(user_in: RegisterRequest):
         # Create refresh token
         refresh_token = create_refresh_token(str(user.id))
         
-        # Prepare user data for response
-        user_data = user.dict(exclude={
+        # Prepare user data for response - convert to dict and handle ObjectId serialization
+        user_data = user.model_dump(exclude={
             "hashed_password",
             "created_at",
             "updated_at"
         })
+        # Ensure ObjectId is converted to string
+        if "id" in user_data:
+            user_data["id"] = str(user_data["id"])
         
         return standard_response(
             True,

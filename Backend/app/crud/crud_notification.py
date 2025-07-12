@@ -20,6 +20,15 @@ class CRUDNotification:
             return None
         notification_data = await self.collection.find_one({"_id": ObjectId(notification_id)})
         if notification_data:
+            # Convert ObjectId to string for JSON serialization
+            if "_id" in notification_data:
+                notification_data["_id"] = str(notification_data["_id"])
+            if "user_id" in notification_data:
+                notification_data["user_id"] = str(notification_data["user_id"])
+            if "related_question_id" in notification_data:
+                notification_data["related_question_id"] = str(notification_data["related_question_id"])
+            if "related_answer_id" in notification_data:
+                notification_data["related_answer_id"] = str(notification_data["related_answer_id"])
             return NotificationInDB(**notification_data)
         return None
 
@@ -31,6 +40,15 @@ class CRUDNotification:
         cursor = self.collection.find({"user_id": ObjectId(user_id)}).sort("created_at", -1).skip(skip).limit(limit)
         
         async for notification_data in cursor:
+            # Convert ObjectId to string for JSON serialization
+            if "_id" in notification_data:
+                notification_data["_id"] = str(notification_data["_id"])
+            if "user_id" in notification_data:
+                notification_data["user_id"] = str(notification_data["user_id"])
+            if "related_question_id" in notification_data:
+                notification_data["related_question_id"] = str(notification_data["related_question_id"])
+            if "related_answer_id" in notification_data:
+                notification_data["related_answer_id"] = str(notification_data["related_answer_id"])
             notifications.append(NotificationInDB(**notification_data))
         
         return notifications

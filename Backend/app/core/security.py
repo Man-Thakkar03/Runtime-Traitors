@@ -68,7 +68,7 @@ def create_access_token_from_refresh_token(refresh_token: str) -> str:
 # OAuth2 scheme
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/v1/auth/login")
 
-async def get_current_user(token: str = Depends(oauth2_scheme)) -> UserInDB:
+async def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
     """
     Get the current authenticated user from the JWT token
     """
@@ -90,16 +90,25 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> UserInDB:
         if user is None:
             raise credentials_exception
             
-        return user
+        # Return as dictionary format expected by endpoints
+        return {
+            "user_id": str(user.id),
+            "email": user.email,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "is_active": user.is_active,
+            "is_verified": user.is_verified,
+            "role": user.role
+        }
         
     except JOSEError as e:
         raise credentials_exception
 
-async def get_current_active_user(current_user: UserInDB = Depends(get_current_user)) -> UserInDB:
+async def get_current_active_user(current_user: dict = Depends(get_current_user)) -> dict:
     """
     Get the current active user
     """
-    if not current_user.is_active:
+    if not current_user["is_active"]:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Inactive user"
