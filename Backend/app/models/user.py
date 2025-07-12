@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Optional, Annotated
 from pydantic import BaseModel, EmailStr, Field, BeforeValidator
 from bson import ObjectId
+from app.models.enums import UserRole
 
 def validate_object_id(v):
     if isinstance(v, ObjectId):
@@ -18,7 +19,7 @@ class UserBase(BaseModel):
     last_name: str
     is_active: bool = True
     is_verified: bool = False
-    role: str = "user"
+    role: UserRole = UserRole.user
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 

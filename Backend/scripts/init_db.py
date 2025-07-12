@@ -16,37 +16,8 @@ async def init_db():
     # Initialize database connection
     await Database.connect_to_mongo()
     
-    # Create CRUD instance
-    crud_user = CRUDUser()
-    
-    # Check if admin user already exists
-    admin_email = "admin@example.com"
-    existing_admin = await crud_user.get_by_email(admin_email)
-    
-    if existing_admin:
-        print(f"Admin user already exists with email: {admin_email}")
-        return
-    
-    # Create admin user
-    admin_user = UserCreate(
-        email=admin_email,
-        password="admin123",  # In production, use a secure password from environment variables
-        first_name="Admin",
-        last_name="User",
-        role="admin",
-        is_active=True,
-        is_verified=True
-    )
-    
-    try:
-        # Create admin user
-        admin = await crud_user.create(admin_user)
-        print(f"Admin user created successfully with ID: {admin.id}")
-        print(f"Email: {admin.email}")
-        print("Password: admin123")  # In production, don't log passwords
-        print("\nIMPORTANT: Change the default password after first login!")
-    except Exception as e:
-        print(f"Error creating admin user: {str(e)}")
+    print("Database initialization completed successfully!")
+    print("No admin users will be created as admin functionality has been removed.")
 
 if __name__ == "__main__":
     # Load environment variables

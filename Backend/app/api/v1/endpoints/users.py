@@ -2,7 +2,7 @@ from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, status
 
 
-from app.core.security import get_current_active_user, get_current_admin_user
+from app.core.security import get_current_active_user
 from app.models.user import  UserUpdate
 from app.crud.crud_user import user as crud_user
 
