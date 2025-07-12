@@ -20,8 +20,8 @@ const features = [
     color: 'from-blue-500 to-blue-600'
   },
   {
-    name: 'Event & Calendar Management',
-    description: 'Plan, organize and track events with integrated scheduling, RSVPs, reminders and calendar sync.',
+    name: 'Notification & Calendar Management',
+    description: 'Plan, organize and track notifications with integrated scheduling, RSVPs, reminders and calendar sync.',
     icon: Calendar,
     color: 'from-purple-500 to-purple-600'
   },

@@ -5,7 +5,7 @@ import { Clock, Zap, CheckCircle, AlertTriangle, ArrowUpRight, Users, Activity, 
 import PollVisualizer from '@/components/global/poll-info/PollVisualizer';
 import { 
   dashboardStats, 
-  eventsStats, 
+  notificationsStats, 
   pollsStats, 
   qaStats, 
   settingsStats,
@@ -71,7 +71,7 @@ const createChartData = (stats: StatItem[]): ChartDataItem[] => {
 };
 
 const dashboardChartData = createChartData(dashboardStats);
-const eventsChartData = createChartData(eventsStats);
+const notificationsChartData = createChartData(notificationsStats);
 const pollsChartData = createChartData(pollsStats);
 const qaChartData = createChartData(qaStats);
 const settingsChartData = createChartData(settingsStats);
@@ -79,7 +79,7 @@ const settingsChartData = createChartData(settingsStats);
 // Map activity types to icons
 const getActivityIcon = (type: string) => {
   switch(type) {
-    case 'event': return <Calendar className="h-4 w-4 text-purple-400" />;
+    case 'notification': return <Calendar className="h-4 w-4 text-purple-400" />;
     case 'poll': return <BarChart2 className="h-4 w-4 text-blue-400" />;
 
     case 'qa': return <MessageSquare className="h-4 w-4 text-amber-400" />;
@@ -437,18 +437,18 @@ export default function DashboardPage() {
 
 
 
-      {/* Section: Events & Polls */}
+      {/* Section: Notifications & Polls */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Events */}
+        {/* Notifications */}
         <div className="bg-[#18181b] border border-[#23232A] p-6 rounded-xl">
           <SectionHeader 
-            title="Events" 
+            title="Notifications" 
             icon={<Calendar className="h-5 w-5 text-green-400" />} 
-            viewAll="/dashboard/events"
+            viewAll="/dashboard/notifications"
           />
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={eventsChartData}>
+              <BarChart data={notificationsChartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#2D2D35" />
                 <XAxis dataKey="name" stroke="#9CA3AF" />
                 <YAxis stroke="#9CA3AF" />
@@ -463,7 +463,7 @@ export default function DashboardPage() {
           <div className="flex justify-center gap-4 mt-4 text-sm">
             <div className="flex items-center">
               <span className="w-2 h-2 rounded-full bg-green-500 mr-2"></span>
-              <span className="text-gray-400">Monthly Events</span>
+              <span className="text-gray-400">Monthly Notifications</span>
             </div>
           </div>
         </div>

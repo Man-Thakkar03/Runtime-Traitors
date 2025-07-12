@@ -12,12 +12,12 @@ export const dashboardStats = [
 
 
 
-// Events Stats
-export const eventsStats = [
-  { name: 'Upcoming Events', value: '38', change: '+8', changeType: 'positive' },
+// Notifications Stats
+export const notificationsStats = [
+  { name: 'Upcoming Notifications', value: '38', change: '+8', changeType: 'positive' },
   { name: 'Registrations', value: '1,256', change: '+28.8%', changeType: 'positive' },
   { name: 'Avg. Attendance', value: '87.5%', change: '+4.3%', changeType: 'positive' },
-  { name: 'Completed Events', value: '124', change: '+15', changeType: 'positive' },
+  { name: 'Completed Notifications', value: '124', change: '+15', changeType: 'positive' },
   { name: 'Active Organizers', value: '32', change: '+7', changeType: 'positive' },
   { name: 'Avg. Rating', value: '4.8/5', change: '+0.3', changeType: 'positive' },
 ];
@@ -68,12 +68,12 @@ export const settingsStats = [
 
 // Monthly Trend Data
 export const monthlyTrendData = [
-  { name: 'Jan', users: 2840, events: 18, engagement: 62, revenue: 12400 },
-  { name: 'Feb', users: 3120, events: 22, engagement: 68, revenue: 15600 },
-  { name: 'Mar', users: 3580, events: 25, engagement: 72, revenue: 18900 },
-  { name: 'Apr', users: 3780, events: 28, engagement: 75, revenue: 22400 },
-  { name: 'May', users: 3920, events: 32, engagement: 78, revenue: 25800 },
-  { name: 'Jun', users: 4150, events: 36, engagement: 82, revenue: 28500 },
+  { name: 'Jan', users: 2840, notifications: 18, engagement: 62, revenue: 12400 },
+  { name: 'Feb', users: 3120, notifications: 22, engagement: 68, revenue: 15600 },
+  { name: 'Mar', users: 3580, notifications: 25, engagement: 72, revenue: 18900 },
+  { name: 'Apr', users: 3780, notifications: 28, engagement: 75, revenue: 22400 },
+  { name: 'May', users: 3920, notifications: 32, engagement: 78, revenue: 25800 },
+  { name: 'Jun', users: 4150, notifications: 36, engagement: 82, revenue: 28500 },
 ];
 
 // User Activity by Time
@@ -94,7 +94,7 @@ export const userActivityByTime = [
 
 // Content Engagement by Type
 export const contentEngagementData = [
-  { type: 'Events', engagement: 82 },
+  { type: 'Notifications', engagement: 82 },
   { type: 'Polls', engagement: 74 },
   { type: 'Q&A', engagement: 68 },
 ];
@@ -116,12 +116,12 @@ export const userGrowthStages = [
 
 // Recent Activity
 export const recentActivityData = [
-  { id: 1, user: 'Alex Johnson', action: 'created a new event', time: '2 min ago', type: 'event' },
+  { id: 1, user: 'Alex Johnson', action: 'created a new notification', time: '2 min ago', type: 'notification' },
   { id: 2, user: 'Maria Garcia', action: 'responded to a poll', time: '5 min ago', type: 'poll' },
 
   { id: 4, user: 'Sarah Miller', action: 'answered a question', time: '18 min ago', type: 'qa' },
 
-  { id: 6, user: 'Emma Taylor', action: 'registered for an event', time: '32 min ago', type: 'event' },
+  { id: 6, user: 'Emma Taylor', action: 'registered for a notification', time: '32 min ago', type: 'notification' },
   { id: 7, user: 'Michael Brown', action: 'created a new poll', time: '45 min ago', type: 'poll' },
   { id: 8, user: 'System', action: 'scheduled backup completed', time: '1 hour ago', type: 'system' },
 ];
