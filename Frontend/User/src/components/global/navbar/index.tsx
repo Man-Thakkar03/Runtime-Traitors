@@ -76,10 +76,6 @@ const Navbar = ({ slug }: Props) => {
                       <ClerkAuthState />
                       <span>Profile</span>
                     </Button>
-                    <Button variant="ghost" className="w-full justify-start gap-3 text-gray-400 hover:bg-white/5 hover:text-white transition-colors">
-                      <HelpCircle className="h-5 w-5" />
-                      <span>Help & Support</span>
-                    </Button>
                   </div>
                 </div>
               </div>

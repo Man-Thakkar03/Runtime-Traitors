@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import EventCard from "@/components/global/event-card/EventCard";
+import NotificationCard from "@/components/global/notification-card/NotificationCard";
 import { Clock, Calendar, Search, Plus, Filter, MapPin } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-const mockEvents = [
+const mockNotifications = [
   {
     id: 1,
     title: "Tech Talk: AI & Startups",
@@ -67,30 +67,30 @@ const mockEvents = [
   },
 ];
 
-export default function EventsPage() {
+export default function NotificationsPage() {
   const [filterType, setFilterType] = useState<'all' | 'upcoming' | 'past'>('upcoming');
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
-  const handleCreateEvent = () => {
-    router.push('/dashboard/events/create');
+  const handleCreateNotification = () => {
+    router.push('/dashboard/notifications/create');
   };
 
-  const filteredEvents = mockEvents.filter(event => {
+  const filteredNotifications = mockNotifications.filter(notification => {
     // Filter by search query
-    if (searchQuery && !event.title.toLowerCase().includes(searchQuery.toLowerCase()) && 
-        !event.description.toLowerCase().includes(searchQuery.toLowerCase())) {
+    if (searchQuery && !notification.title.toLowerCase().includes(searchQuery.toLowerCase()) && 
+        !notification.description.toLowerCase().includes(searchQuery.toLowerCase())) {
       return false;
     }
     
-    // Filter by event type
-    const eventDate = new Date(event.datetime);
+    // Filter by notification type
+    const notificationDate = new Date(notification.datetime);
     const today = new Date();
     
-    if (filterType === 'upcoming' && eventDate < today) {
+    if (filterType === 'upcoming' && notificationDate < today) {
       return false;
     }
     
-    if (filterType === 'past' && eventDate >= today) {
+    if (filterType === 'past' && notificationDate >= today) {
       return false;
     }
     
@@ -102,8 +102,8 @@ export default function EventsPage() {
       <div className="flex flex-col gap-4">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-white">Events</h1>
-            <p className="text-gray-400 mt-1">Find and manage upcoming community events</p>
+            <h1 className="text-2xl font-bold text-white">Notifications</h1>
+            <p className="text-gray-400 mt-1">Find and manage upcoming community notifications</p>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-3 bg-[#1E1E24] px-4 py-2 rounded-lg border border-[#2D2D35]">
@@ -111,11 +111,11 @@ export default function EventsPage() {
               <span className="text-sm text-gray-300">May 18, 2025</span>
             </div>
             <button 
-              onClick={handleCreateEvent}
+              onClick={handleCreateNotification}
               className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors"
             >
               <Plus className="h-4 w-4" />
-              <span className="text-sm font-medium">Create Event</span>
+              <span className="text-sm font-medium">Create Notification</span>
             </button>
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function EventsPage() {
         <nav className="flex items-center text-sm text-gray-400">
           <span onClick={() => router.push('/dashboard')} className="hover:text-white transition-colors cursor-pointer">Home</span>
           <span className="mx-2">/</span>
-          <span className="text-white">Events</span>
+          <span className="text-white">Notifications</span>
         </nav>
       </div>
 
@@ -139,7 +139,7 @@ export default function EventsPage() {
                   : 'bg-[#23232A] text-gray-300 hover:bg-[#2D2D35]'
               }`}
             >
-              All Events
+              All Notifications
             </button>
             <button 
               onClick={() => setFilterType('upcoming')}
@@ -159,7 +159,7 @@ export default function EventsPage() {
                   : 'bg-[#23232A] text-gray-300 hover:bg-[#2D2D35]'
               }`}
             >
-              Past Events
+              Past Notifications
             </button>
             <div className="flex items-center px-3 py-1.5 bg-[#23232A] rounded-lg text-gray-300 hover:bg-[#2D2D35] transition-colors">
               <Filter className="h-4 w-4 mr-2" />
@@ -169,7 +169,7 @@ export default function EventsPage() {
           <div className="relative w-full sm:w-auto">
             <input
               type="text"
-              placeholder="Search events..."
+              placeholder="Search notifications..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full sm:w-64 py-1.5 px-3 pr-8 bg-[#23232A] border border-[#2D2D35] rounded-lg text-sm text-gray-300 focus:outline-none focus:border-purple-500"
@@ -181,15 +181,15 @@ export default function EventsPage() {
         </div>
       </div>
 
-      {/* Events Grid */}
+      {/* Notifications Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredEvents.length > 0 ? (
-          filteredEvents.map((event) => (
-            <EventCard key={event.id} event={event} />
+        {filteredNotifications.length > 0 ? (
+          filteredNotifications.map((notification) => (
+            <NotificationCard key={notification.id} notification={notification} />
           ))
         ) : (
           <div className="col-span-full bg-[#18181b] border border-[#23232A] p-8 rounded-xl text-center">
-            <p className="text-gray-400">No events found. Try adjusting your filters or create a new event.</p>
+            <p className="text-gray-400">No notifications found. Try adjusting your filters or create a new notification.</p>
           </div>
         )}
       </div>

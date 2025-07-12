@@ -5,7 +5,7 @@ import { LogoSmall } from '@/svgs/logo-small';
 import Items from "@/components/global/sider/items";
 import { Separator } from '@/components/ui/separator';
 import ClerkAuthState from '@/components/global/clerk-auth-state';
-import HelpDuoToneWhite from '@/svgs/help-duotone-white';
+
 import { motion } from 'framer-motion';
 
 type Props = {
@@ -53,14 +53,6 @@ const Sidebar = (props: Props) => {
                         >
                             <ClerkAuthState />
                             <span className="text-[#E0E0E0] font-medium">Profile</span>
-                        </motion.div>
-                        
-                        <motion.div 
-                            whileHover={{ x: 4 }}
-                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#2A2A30]/50 transition-colors cursor-pointer"
-                        >
-                            <HelpDuoToneWhite className="text-[#9B9CA0] group-hover:text-white transition-colors" />
-                            <span className="text-[#9B9CA0] group-hover:text-white transition-colors">Help & Support</span>
                         </motion.div>
                     </div>
                 </div>

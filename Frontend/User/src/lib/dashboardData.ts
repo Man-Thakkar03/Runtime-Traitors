@@ -10,22 +10,14 @@ export const dashboardStats = [
   { name: 'Avg. Session', value: '12m 45s', change: '+2.8%', changeType: 'positive' },
 ];
 
-// Feed Stats
-export const feedStats = [
-  { name: 'Total Posts', value: '2,547', change: '+22.3%', changeType: 'positive' },
-  { name: 'Engagement Rate', value: '34.8%', change: '+7.6%', changeType: 'positive' },
-  { name: 'Comments', value: '8,932', change: '+31.4%', changeType: 'positive' },
-  { name: 'Shares', value: '1,245', change: '+42.7%', changeType: 'positive' },
-  { name: 'Avg. Reach', value: '1,892', change: '+15.4%', changeType: 'positive' },
-  { name: 'Active Contributors', value: '756', change: '+12.7%', changeType: 'positive' },
-];
 
-// Events Stats
-export const eventsStats = [
-  { name: 'Upcoming Events', value: '38', change: '+8', changeType: 'positive' },
+
+// Notifications Stats
+export const notificationsStats = [
+  { name: 'Upcoming Notifications', value: '38', change: '+8', changeType: 'positive' },
   { name: 'Registrations', value: '1,256', change: '+28.8%', changeType: 'positive' },
   { name: 'Avg. Attendance', value: '87.5%', change: '+4.3%', changeType: 'positive' },
-  { name: 'Completed Events', value: '124', change: '+15', changeType: 'positive' },
+  { name: 'Completed Notifications', value: '124', change: '+15', changeType: 'positive' },
   { name: 'Active Organizers', value: '32', change: '+7', changeType: 'positive' },
   { name: 'Avg. Rating', value: '4.8/5', change: '+0.3', changeType: 'positive' },
 ];
@@ -40,15 +32,7 @@ export const pollsStats = [
   { name: 'User Satisfaction', value: '94%', change: '+3.2%', changeType: 'positive' },
 ];
 
-// Chat Stats
-export const chatStats = [
-  { name: 'Active Chats', value: '542', change: '+124', changeType: 'positive' },
-  { name: 'Messages Today', value: '3,847', change: '+32.7%', changeType: 'positive' },
-  { name: 'Response Time', value: '1m 45s', change: '-22.2%', changeType: 'positive' },
-  { name: 'Group Discussions', value: '48', change: '+15', changeType: 'positive' },
-  { name: 'Resolved Issues', value: '187', change: '+34.8%', changeType: 'positive' },
-  { name: 'Chat Satisfaction', value: '96%', change: '+3.1%', changeType: 'positive' },
-];
+
 
 // Q&A Stats
 export const qaStats = [
@@ -70,15 +54,7 @@ export const automationStats = [
   { name: 'ROI', value: '345%', change: '+28.3%', changeType: 'positive' },
 ];
 
-// Integration Stats
-export const integrationStats = [
-  { name: 'Active Integrations', value: '42', change: '+8', changeType: 'positive' },
-  { name: 'Data Syncs/Hour', value: '3,245', change: '+27.7%', changeType: 'positive' },
-  { name: 'API Calls', value: '124.5K', change: '+18.3%', changeType: 'positive' },
-  { name: 'Connected Apps', value: '28', change: '+6', changeType: 'positive' },
-  { name: 'Data Transferred', value: '1.8 TB', change: '+32.5%', changeType: 'positive' },
-  { name: 'Uptime', value: '99.98%', change: '+0.02%', changeType: 'positive' },
-];
+
 
 // Settings Stats
 export const settingsStats = [
@@ -92,12 +68,12 @@ export const settingsStats = [
 
 // Monthly Trend Data
 export const monthlyTrendData = [
-  { name: 'Jan', users: 2840, posts: 1540, events: 18, engagement: 62, revenue: 12400 },
-  { name: 'Feb', users: 3120, posts: 1780, events: 22, engagement: 68, revenue: 15600 },
-  { name: 'Mar', users: 3580, posts: 2150, events: 25, engagement: 72, revenue: 18900 },
-  { name: 'Apr', users: 3780, posts: 2480, events: 28, engagement: 75, revenue: 22400 },
-  { name: 'May', users: 3920, posts: 2720, events: 32, engagement: 78, revenue: 25800 },
-  { name: 'Jun', users: 4150, posts: 3050, events: 36, engagement: 82, revenue: 28500 },
+  { name: 'Jan', users: 2840, notifications: 18, engagement: 62, revenue: 12400 },
+  { name: 'Feb', users: 3120, notifications: 22, engagement: 68, revenue: 15600 },
+  { name: 'Mar', users: 3580, notifications: 25, engagement: 72, revenue: 18900 },
+  { name: 'Apr', users: 3780, notifications: 28, engagement: 75, revenue: 22400 },
+  { name: 'May', users: 3920, notifications: 32, engagement: 78, revenue: 25800 },
+  { name: 'Jun', users: 4150, notifications: 36, engagement: 82, revenue: 28500 },
 ];
 
 // User Activity by Time
@@ -118,11 +94,9 @@ export const userActivityByTime = [
 
 // Content Engagement by Type
 export const contentEngagementData = [
-  { type: 'Posts', engagement: 78 },
-  { type: 'Events', engagement: 82 },
+  { type: 'Notifications', engagement: 82 },
   { type: 'Polls', engagement: 74 },
   { type: 'Q&A', engagement: 68 },
-  { type: 'Chat', engagement: 86 },
 ];
 
 // Device Distribution
@@ -142,12 +116,12 @@ export const userGrowthStages = [
 
 // Recent Activity
 export const recentActivityData = [
-  { id: 1, user: 'Alex Johnson', action: 'created a new event', time: '2 min ago', type: 'event' },
+  { id: 1, user: 'Alex Johnson', action: 'created a new notification', time: '2 min ago', type: 'notification' },
   { id: 2, user: 'Maria Garcia', action: 'responded to a poll', time: '5 min ago', type: 'poll' },
-  { id: 3, user: 'James Wilson', action: 'posted in the community', time: '12 min ago', type: 'post' },
+
   { id: 4, user: 'Sarah Miller', action: 'answered a question', time: '18 min ago', type: 'qa' },
-  { id: 5, user: 'David Chen', action: 'joined a group chat', time: '25 min ago', type: 'chat' },
-  { id: 6, user: 'Emma Taylor', action: 'registered for an event', time: '32 min ago', type: 'event' },
+
+  { id: 6, user: 'Emma Taylor', action: 'registered for a notification', time: '32 min ago', type: 'notification' },
   { id: 7, user: 'Michael Brown', action: 'created a new poll', time: '45 min ago', type: 'poll' },
   { id: 8, user: 'System', action: 'scheduled backup completed', time: '1 hour ago', type: 'system' },
 ];

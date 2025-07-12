@@ -5,12 +5,9 @@ import { Clock, Zap, CheckCircle, AlertTriangle, ArrowUpRight, Users, Activity, 
 import PollVisualizer from '@/components/global/poll-info/PollVisualizer';
 import { 
   dashboardStats, 
-  feedStats, 
-  eventsStats, 
+  notificationsStats, 
   pollsStats, 
-  chatStats, 
   qaStats, 
-  integrationStats, 
   settingsStats,
   monthlyTrendData,
   userActivityByTime,
@@ -74,22 +71,19 @@ const createChartData = (stats: StatItem[]): ChartDataItem[] => {
 };
 
 const dashboardChartData = createChartData(dashboardStats);
-const feedChartData = createChartData(feedStats);
-const eventsChartData = createChartData(eventsStats);
+const notificationsChartData = createChartData(notificationsStats);
 const pollsChartData = createChartData(pollsStats);
-const chatChartData = createChartData(chatStats);
 const qaChartData = createChartData(qaStats);
-const integrationsChartData = createChartData(integrationStats);
 const settingsChartData = createChartData(settingsStats);
 
 // Map activity types to icons
 const getActivityIcon = (type: string) => {
   switch(type) {
-    case 'event': return <Calendar className="h-4 w-4 text-purple-400" />;
+    case 'notification': return <Calendar className="h-4 w-4 text-purple-400" />;
     case 'poll': return <BarChart2 className="h-4 w-4 text-blue-400" />;
-    case 'post': return <FileText className="h-4 w-4 text-green-400" />;
+
     case 'qa': return <MessageSquare className="h-4 w-4 text-amber-400" />;
-    case 'chat': return <MessageSquare className="h-4 w-4 text-pink-400" />;
+
     case 'system': return <Settings className="h-4 w-4 text-gray-400" />;
     default: return <Activity className="h-4 w-4 text-purple-400" />;
   }
@@ -334,7 +328,7 @@ export default function DashboardPage() {
                     contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151', borderRadius: '0.5rem' }}
                     labelStyle={{ color: '#E5E7EB' }}
                     formatter={(value: number, name: string) => {
-                      return [value.toLocaleString(), name === 'users' ? 'Members' : name === 'posts' ? 'Content' : name === 'engagement' ? 'Engagement %' : name];
+                      return [value.toLocaleString(), name === 'users' ? 'Members' : name === 'engagement' ? 'Engagement %' : name];
                     }}
                   />
                   <Line 
@@ -441,86 +435,20 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Section: Feed Stats */}
-      <div className="bg-[#18181b] border border-[#23232A] p-6 rounded-xl">
-        <SectionHeader 
-          title="Content Analytics" 
-          icon={<FileText className="h-5 w-5 text-blue-400" />} 
-          viewAll="/dashboard/feed"
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-          <StatCard 
-            name="Total Posts" 
-            value={feedStats[0].value} 
-            change={feedStats[0].change} 
-            changeType="positive" 
-            icon={<FileText className="h-5 w-5 text-blue-400" />} 
-          />
-          <StatCard 
-            name="Engagement Rate" 
-            value={feedStats[1].value} 
-            change={feedStats[1].change} 
-            changeType="positive" 
-            icon={<Activity className="h-5 w-5 text-green-400" />} 
-          />
-          <StatCard 
-            name="Comments" 
-            value={feedStats[2].value} 
-            change={feedStats[2].change} 
-            changeType="positive" 
-            icon={<MessageSquare className="h-5 w-5 text-purple-400" />} 
-          />
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
-          <div className="h-80">
-            <h3 className="text-lg font-medium text-white mb-4">Content Growth</h3>
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={monthlyTrendData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#2D2D35" />
-                <XAxis dataKey="name" stroke="#9CA3AF" />
-                <YAxis stroke="#9CA3AF" />
-                <Tooltip
-                  contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151', borderRadius: '0.5rem' }}
-                  labelStyle={{ color: '#E5E7EB' }}
-                  formatter={(value: number) => [value.toLocaleString(), 'Posts']}
-                />
-                <Bar dataKey="posts" fill={COLORS.info} radius={[4, 4, 0, 0]} name="Posts" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-          <div className="h-80">
-            <h3 className="text-lg font-medium text-white mb-4">Content Engagement</h3>
-            <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={contentEngagementData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#2D2D35" />
-                <XAxis dataKey="type" stroke="#9CA3AF" />
-                <YAxis stroke="#9CA3AF" domain={[0, 100]} />
-                <Tooltip
-                  contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151', borderRadius: '0.5rem' }}
-                  labelStyle={{ color: '#E5E7EB' }}
-                  formatter={(value: number) => [`${value}%`, 'Engagement']}
-                />
-                <Bar dataKey="engagement" fill={COLORS.primary} radius={[4, 4, 0, 0]} />
-                <Line type="monotone" dataKey="engagement" stroke={COLORS.accent1} strokeWidth={2} dot={{ fill: COLORS.background, strokeWidth: 2, stroke: COLORS.accent1, r: 4 }} />
-              </ComposedChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </div>
 
-      {/* Section: Events & Polls */}
+      {/* Section: Notifications & Polls */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Events */}
+        {/* Notifications */}
         <div className="bg-[#18181b] border border-[#23232A] p-6 rounded-xl">
           <SectionHeader 
-            title="Events" 
+            title="Notifications" 
             icon={<Calendar className="h-5 w-5 text-green-400" />} 
-            viewAll="/dashboard/events"
+            viewAll="/dashboard/notifications"
           />
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={eventsChartData}>
+              <BarChart data={notificationsChartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#2D2D35" />
                 <XAxis dataKey="name" stroke="#9CA3AF" />
                 <YAxis stroke="#9CA3AF" />
@@ -535,7 +463,7 @@ export default function DashboardPage() {
           <div className="flex justify-center gap-4 mt-4 text-sm">
             <div className="flex items-center">
               <span className="w-2 h-2 rounded-full bg-green-500 mr-2"></span>
-              <span className="text-gray-400">Monthly Events</span>
+              <span className="text-gray-400">Monthly Notifications</span>
             </div>
           </div>
         </div>
