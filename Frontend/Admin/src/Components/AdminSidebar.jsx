@@ -1,47 +1,55 @@
-import { Link, useLocation } from "react-router-dom";
-import { FaHome, FaCog, FaBell, FaUsers, FaQuestion } from "react-icons/fa";
+import React from "react";
+import { FaHome, FaUser, FaQuestionCircle, FaCommentDots, FaArrowUp, FaExclamationTriangle, FaBan, FaCog, FaSignOutAlt } from "react-icons/fa";
 
-const AdminSidebar = () => {
-  const location = useLocation();
+const menu = [
+  { label: "Dashboard", icon: <FaHome />, path: "/admin/dashboard" },
+  { label: "Users", icon: <FaUser />, path: "/admin/users" },
+  { label: "Questions", icon: <FaQuestionCircle />, path: "/admin/questions" },
+  { label: "Answers", icon: <FaCommentDots />, path: "/admin/answers" },
+  { label: "Votes", icon: <FaArrowUp />, path: "/admin/votes" },
+  { label: "Moderation", icon: <FaExclamationTriangle />, path: "/admin/moderation" },
+  { label: "Banned", icon: <FaBan />, path: "/admin/banned" },
+  { label: "Settings", icon: <FaCog />, path: "/admin/settings" },
+];
 
-  const menuItems = [
-    { label: "Dashboard", icon: <FaHome />, to: "/dashboard" },
-    { label: "Users", icon: <FaUsers />, to: "/users" },
-    { label: "Questions", icon: <FaQuestion />, to: "/questions" },
-    { label: "Notifications", icon: <FaBell />, to: "/notifications" },
-    { label: "Settings", icon: <FaCog />, to: "/settings" },
-  ];
-
-  return (
-    <div className="w-64 h-screen bg-[#0f0f1a] text-white px-4 py-6 flex flex-col justify-between font-rajdhani border-r border-[#1a1a2c]">
-      <div>
-        <h1 className="text-3xl font-bold text-purple-500 mb-10">Runtime</h1>
-        <nav className="space-y-2">
-          {menuItems.map((item) => (
-            <Link
-              key={item.label}
-              to={item.to}
-              className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors hover:bg-[#1c1c2e] ${
-                location.pathname === item.to ? "bg-[#1c1c2e] text-purple-400" : "text-gray-300"
-              }`}
-            >
-              <span className="text-lg">{item.icon}</span>
-              <span className="text-md font-medium">{item.label}</span>
-            </Link>
-          ))}
-        </nav>
+const AdminSidebar = ({ activePath }) => (
+  <aside className="fixed left-0 top-0 h-screen w-64 flex flex-col justify-between shadow-lg bg-[#1A1C23] z-40">
+    <div>
+      {/* Logo */}
+      <div className="flex items-center gap-2 px-6 py-6">
+        <span className="bg-gradient-to-r from-purple-500 to-blue-400 rounded-lg p-2">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="16" fill="#7C3AED" />
+            <path d="M8 16C12 10 20 22 24 16" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+        </span>
+        <span className="text-white text-2xl font-bold tracking-wide">Ripple†</span>
       </div>
-
-      <div className="px-4">
-        <Link
-          to="/profile"
-          className="w-full flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-xl"
-        >
-          Get Started
-        </Link>
-      </div>
+      {/* Menu */}
+      <nav className="mt-4 flex flex-col gap-1">
+        {menu.map((item) => (
+          <a
+            key={item.label}
+            href={item.path}
+            className={`flex items-center gap-3 px-6 py-3 rounded-lg mx-2 text-base font-medium transition
+              ${activePath === item.path
+                ? "bg-gradient-to-r from-purple-600 to-blue-500 text-white shadow"
+                : "text-gray-300 hover:bg-[#23263A] hover:text-white"}
+            `}
+          >
+            <span className="text-xl">{item.icon}</span>
+            {item.label}
+          </a>
+        ))}
+      </nav>
     </div>
-  );
-};
+    <div className="mb-6 px-6">
+      <button className="w-full flex items-center gap-2 justify-center bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition">
+        <FaSignOutAlt />
+        Logout
+      </button>
+    </div>
+  </aside>
+);
 
 export default AdminSidebar;
