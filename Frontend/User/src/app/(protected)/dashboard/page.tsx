@@ -2,10 +2,11 @@
 import React from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, RadialBarChart, RadialBar, ComposedChart, Legend } from 'recharts';
 import { Clock, Zap, CheckCircle, AlertTriangle, ArrowUpRight, Users, Activity, TrendingUp, FileText, MessageSquare, Calendar, BarChart2, Settings, Zap as Lightning, GitMerge, Smartphone, UserPlus, Award, Percent, Clock3, PieChart as PieChartIcon, LineChart as LineChartIcon } from 'lucide-react';
-
+import PollVisualizer from '@/components/global/poll-info/PollVisualizer';
 import { 
   dashboardStats, 
   notificationsStats, 
+  pollsStats, 
   qaStats, 
   settingsStats,
   monthlyTrendData,
@@ -71,6 +72,7 @@ const createChartData = (stats: StatItem[]): ChartDataItem[] => {
 
 const dashboardChartData = createChartData(dashboardStats);
 const notificationsChartData = createChartData(notificationsStats);
+const pollsChartData = createChartData(pollsStats);
 const qaChartData = createChartData(qaStats);
 const settingsChartData = createChartData(settingsStats);
 
@@ -78,7 +80,10 @@ const settingsChartData = createChartData(settingsStats);
 const getActivityIcon = (type: string) => {
   switch(type) {
     case 'notification': return <Calendar className="h-4 w-4 text-purple-400" />;
+    case 'poll': return <BarChart2 className="h-4 w-4 text-blue-400" />;
+
     case 'qa': return <MessageSquare className="h-4 w-4 text-amber-400" />;
+
     case 'system': return <Settings className="h-4 w-4 text-gray-400" />;
     default: return <Activity className="h-4 w-4 text-purple-400" />;
   }
@@ -432,8 +437,8 @@ export default function DashboardPage() {
 
 
 
-      {/* Section: Notifications */}
-      <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
+      {/* Section: Notifications & Polls */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Notifications */}
         <div className="bg-[#18181b] border border-[#23232A] p-6 rounded-xl">
           <SectionHeader 
@@ -460,6 +465,20 @@ export default function DashboardPage() {
               <span className="w-2 h-2 rounded-full bg-green-500 mr-2"></span>
               <span className="text-gray-400">Monthly Notifications</span>
             </div>
+          </div>
+        </div>
+
+        {/* Polls */}
+        <div className="bg-[#18181b] border border-[#23232A] p-6 rounded-xl">
+          <SectionHeader 
+            title="Polls" 
+            icon={<BarChart2 className="h-5 w-5 text-yellow-400" />} 
+            viewAll="/dashboard/polls"
+          />
+          
+          {/* Poll Visualizer */}
+          <div className="mb-4">
+            <PollVisualizer />
           </div>
         </div>
       </div>
