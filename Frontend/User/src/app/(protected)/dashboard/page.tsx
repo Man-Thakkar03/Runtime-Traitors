@@ -7,9 +7,7 @@ import {
   dashboardStats, 
   eventsStats, 
   pollsStats, 
-  chatStats, 
   qaStats, 
-  integrationStats, 
   settingsStats,
   monthlyTrendData,
   userActivityByTime,
@@ -75,9 +73,7 @@ const createChartData = (stats: StatItem[]): ChartDataItem[] => {
 const dashboardChartData = createChartData(dashboardStats);
 const eventsChartData = createChartData(eventsStats);
 const pollsChartData = createChartData(pollsStats);
-const chatChartData = createChartData(chatStats);
 const qaChartData = createChartData(qaStats);
-const integrationsChartData = createChartData(integrationStats);
 const settingsChartData = createChartData(settingsStats);
 
 // Map activity types to icons
@@ -87,7 +83,7 @@ const getActivityIcon = (type: string) => {
     case 'poll': return <BarChart2 className="h-4 w-4 text-blue-400" />;
 
     case 'qa': return <MessageSquare className="h-4 w-4 text-amber-400" />;
-    case 'chat': return <MessageSquare className="h-4 w-4 text-pink-400" />;
+
     case 'system': return <Settings className="h-4 w-4 text-gray-400" />;
     default: return <Activity className="h-4 w-4 text-purple-400" />;
   }

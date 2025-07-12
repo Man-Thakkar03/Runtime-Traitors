@@ -32,15 +32,7 @@ export const pollsStats = [
   { name: 'User Satisfaction', value: '94%', change: '+3.2%', changeType: 'positive' },
 ];
 
-// Chat Stats
-export const chatStats = [
-  { name: 'Active Chats', value: '542', change: '+124', changeType: 'positive' },
-  { name: 'Messages Today', value: '3,847', change: '+32.7%', changeType: 'positive' },
-  { name: 'Response Time', value: '1m 45s', change: '-22.2%', changeType: 'positive' },
-  { name: 'Group Discussions', value: '48', change: '+15', changeType: 'positive' },
-  { name: 'Resolved Issues', value: '187', change: '+34.8%', changeType: 'positive' },
-  { name: 'Chat Satisfaction', value: '96%', change: '+3.1%', changeType: 'positive' },
-];
+
 
 // Q&A Stats
 export const qaStats = [
@@ -62,15 +54,7 @@ export const automationStats = [
   { name: 'ROI', value: '345%', change: '+28.3%', changeType: 'positive' },
 ];
 
-// Integration Stats
-export const integrationStats = [
-  { name: 'Active Integrations', value: '42', change: '+8', changeType: 'positive' },
-  { name: 'Data Syncs/Hour', value: '3,245', change: '+27.7%', changeType: 'positive' },
-  { name: 'API Calls', value: '124.5K', change: '+18.3%', changeType: 'positive' },
-  { name: 'Connected Apps', value: '28', change: '+6', changeType: 'positive' },
-  { name: 'Data Transferred', value: '1.8 TB', change: '+32.5%', changeType: 'positive' },
-  { name: 'Uptime', value: '99.98%', change: '+0.02%', changeType: 'positive' },
-];
+
 
 // Settings Stats
 export const settingsStats = [
@@ -113,7 +97,6 @@ export const contentEngagementData = [
   { type: 'Events', engagement: 82 },
   { type: 'Polls', engagement: 74 },
   { type: 'Q&A', engagement: 68 },
-  { type: 'Chat', engagement: 86 },
 ];
 
 // Device Distribution
@@ -137,7 +120,7 @@ export const recentActivityData = [
   { id: 2, user: 'Maria Garcia', action: 'responded to a poll', time: '5 min ago', type: 'poll' },
 
   { id: 4, user: 'Sarah Miller', action: 'answered a question', time: '18 min ago', type: 'qa' },
-  { id: 5, user: 'David Chen', action: 'joined a group chat', time: '25 min ago', type: 'chat' },
+
   { id: 6, user: 'Emma Taylor', action: 'registered for an event', time: '32 min ago', type: 'event' },
   { id: 7, user: 'Michael Brown', action: 'created a new poll', time: '45 min ago', type: 'poll' },
   { id: 8, user: 'System', action: 'scheduled backup completed', time: '1 hour ago', type: 'system' },

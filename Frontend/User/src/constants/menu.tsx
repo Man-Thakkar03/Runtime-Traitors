@@ -54,16 +54,7 @@ export const SIDEBAR_MENU: SideBarProps[] = [
     ),
     href: '/dashboard/polls'
   },
-  {
-    id: uuid(),
-    label: 'Chat',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-      </svg>
-    ),
-    href: '/dashboard/chat'
-  },
+
   {
     id: uuid(),
     label: 'Q&A',
@@ -77,16 +68,7 @@ export const SIDEBAR_MENU: SideBarProps[] = [
     href: '/dashboard/qa'
   },
 
-  {
-    id: uuid(),
-    label: 'Integrations',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M2 12h6M16 12h6M7 12a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5h0a5 5 0 0 1-5 5h0a5 5 0 0 1-5-5z" />
-      </svg>
-    ),
-    href: '/dashboard/integrations'
-  },
+
   {
     id: uuid(),
     label: 'Settings',
